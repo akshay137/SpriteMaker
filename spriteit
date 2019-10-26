@@ -1,0 +1,50 @@
+#!/usr/bin/python3
+
+import argparse
+import sys
+import os
+
+from sprite_maker import firstfit, spacepartition
+
+parser = argparse.ArgumentParser(description = "sprite maker argsuments")
+
+parser.add_argument("-path", help = "base path for input images")
+parser.add_argument("-o", help = "Output path")
+parser.add_argument("-padding", type = int, help = "Padding between sprites")
+parser.add_argument("-size", type = int, help = "width of output image")
+parser.add_argument("-inc", type= int, help = "size increment")
+parser.add_argument("-algo", help = "algorithm")
+
+args = parser.parse_args()
+
+_root = args.path
+_op = args.o
+_padding = args.padding
+_size = args.size
+_inc = args.inc
+_algo = args.algo
+
+if (_root is None):
+	_root = "."
+
+if (_op is None):
+	_op = "."
+
+if (_padding is None):
+	_padding = 1
+
+if (_size is None):
+	_size = 256
+
+if (_inc is None):
+	_inc = 256
+
+if (_algo is None):
+	_algo = "firstfit"
+	
+if (_algo == "firstfit"):
+	firstfit.spriteit(_root, _op, _size, _padding, _inc)
+
+if(_algo == "spacepart"):
+	spacepartition.spriteit(_root, _op, _size, _padding, _inc)
+
